@@ -21,6 +21,7 @@ class MinesModel
     MinesModel(int width, int height, int numBombs);
     
     const MinesGrid_t& getGrid() const;
+    bool hasWon() const;
     bool isGameOver() const;
     void reset();
     
