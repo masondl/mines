@@ -21,6 +21,8 @@ MinesModel::MinesModel(int width, int height, int numBombs) :
     m_width = width;
     m_height = height;
     m_numBombs = numBombs;
+    m_numCorrectFlags = 0;
+    m_numIncorrectFlags = 0;
     srand( time(NULL) );
     reset();
 }
@@ -136,20 +138,34 @@ void MinesModel::selectGrid(int x, int y)
 
 void MinesModel::flagGrid(int x, int y)
 {
-    if ((x <= m_width && y <= m_height) && 
-       ((m_numCorrectFlags + m_numIncorrectFlags) < m_numBombs))
+    if (x <= m_width && y <= m_height) 
     {
         if (!m_grid[y][x].flagged)
         {
-            m_grid[y][x].flagged = true;
+            if ((m_numCorrectFlags + m_numIncorrectFlags) < m_numBombs)
+            {
+                m_grid[y][x].flagged = true;
+                if (m_grid[y][x].isBomb)
+                {
+                    m_numCorrectFlags++;
+                }
+                else
+                {
+                    m_numIncorrectFlags++;
+                }
+            }
+        }
+        else
+        {
+            m_grid[y][x].flagged = false;
             if (m_grid[y][x].isBomb)
             {
-                m_numCorrectFlags++;
+                m_numCorrectFlags--;
             }
             else
             {
-                m_numIncorrectFlags++;
-            }
+                m_numIncorrectFlags--;
+            } 
         }
     }    
 }
