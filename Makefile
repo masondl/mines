@@ -14,4 +14,4 @@ Main: MinesModel.o MinesTerminal.o MinesUI.o main.cpp
 	-lsfml-graphics -lsfml-window -lsfml-system
 
 clean:
-	rm mines MinesModel.o MinesTerminal.o
+	rm mines MinesModel.o MinesTerminal.o MinesUI.o

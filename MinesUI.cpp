@@ -116,7 +116,18 @@ void MinesUI::run()
                 }
                 else if (grid[row][col].flagged)
                 {
-                    rect.setFillColor(SELECTED_COLOR);
+                    if (m_model.isGameOver() && grid[row][col].isBomb)
+                    {
+                        rect.setFillColor(sf::Color::Green);
+                    }
+                    else
+                    {
+                        rect.setFillColor(SELECTED_COLOR);
+                    }
+                }
+                else if (m_model.isGameOver() && grid[row][col].isBomb)
+                {
+                    rect.setFillColor(sf::Color::Black);
                 }
                 
                 rect.setOutlineThickness(1);
